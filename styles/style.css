@@ -1,0 +1,48 @@
+body{
+    font-size: 36px;
+}
+main{
+    width: 320px;
+    background-color: black;
+    margin: auto;
+    box-shadow: 3px 1px #404148;
+}
+.display{
+    border: 1px solid #655c7f;
+}
+#currentDisplay{
+    background-color: gray;
+    font-size: 2em;
+    text-align: right;
+    padding: 3px 3px;
+    text-shadow: 1.3px 1.3px #383838
+}
+.actions{
+    width: 100%;
+}
+.button-row{
+    display: flex;
+    width: 100%;
+    align-content: stretch;
+    flex-wrap:wrap;
+}
+
+
+.action-btn{
+    height: 75px;
+    flex:1;
+    background-color: rgb(29, 29, 126);
+    color: #e8b8e3;
+    font-size: large;
+}
+.action-btn:hover{
+    background-color: rgb(190, 220, 219);
+    color: #a8016e;
+}
+.operator{
+    background-color: rgb(9, 94, 111);
+}
+.zero{
+    flex: 2.25;
+}
+
