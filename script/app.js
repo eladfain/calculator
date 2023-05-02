@@ -1,8 +1,11 @@
 let displayData="0",
-operatorPressed=false,
 currentOperator="",
-memoryData="";
-const operatorsStr="+-*/";
+memoryData="",
+lastPreesed="";
+const operatorsStr="+-*/",
+EQUAL="equal",
+DIGIT="digit",
+OPERATOR="operator";
 function init(){
     const digits=document.querySelectorAll(".digit"),
     operators=document.querySelectorAll(".operator:not(.special-operator)"),
@@ -25,13 +28,13 @@ function init(){
     });
     clear.addEventListener('click',e=>{
         displayData="0",
-        operatorPressed=false,
         currentOperator="",
         memoryData="";
+        lastPreesed="";
         updateDisplay();
     });
     toggleSign.addEventListener('click',e=>{
-        displayData=+displayData*(-1);
+        displayData=(+displayData)*(-1);
         updateDisplay();
     });
     backspace.addEventListener('click',e=>{
@@ -78,9 +81,10 @@ function claculate(){
    
 }
 function digitclick(value){
-    if(operatorPressed){
+    if(lastPreesed===EQUAL){
         displayData="";
-        operatorPressed=false;
+    }else if(lastPreesed===OPERATOR){
+        displayData="";
     }
     if(value==="."){
         if(displayData.indexOf(".")===-1){
@@ -93,30 +97,32 @@ function digitclick(value){
     }else{
         displayData=displayData+value;
     }
+    lastPreesed=DIGIT;
     updateDisplay();
 }
 function operatorClick(value){
     if(!currentOperator){
         memoryData=displayData;
     }else{
-        if(memoryData && currentOperator){
+        if(memoryData && currentOperator && lastPreesed===DIGIT){
             claculate();
             memoryData=displayData;
         }
     }
-    operatorPressed=true;
+    lastPreesed=OPERATOR;
     currentOperator=value;
 }
 function equalClick(){
-    if(!operatorPressed){
+    if(lastPreesed!==OPERATOR){
         claculate();
+        lastPreesed=EQUAL;
     }
     
 }
 function backspaceClick(){
-    if(displayData!=='0'){
-        if(displayData.length>1){
-            displayData=displayData.slice(0,-1);
+    if(+displayData!==0){
+        if(+displayData>9){
+            displayData=(""+displayData).slice(0,-1);
         }
         else{
             displayData='0';
@@ -126,6 +132,11 @@ function backspaceClick(){
 }
 function updateDisplay(){
     const displayDiv=document.querySelector("#currentDisplay");
-    displayDiv.innerHTML=displayData;
+    if(Number.isInteger(+displayData)){
+        displayDiv.innerHTML=displayData;
+    }else{
+        displayDiv.innerHTML=(+displayData).toFixed(3);
+    }
+    
 }
 init()

@@ -9,6 +9,8 @@ main{
 }
 .display{
     border: 1px solid #655c7f;
+    background-color: gray;
+    overflow-x: scroll;
 }
 #currentDisplay{
     background-color: gray;
