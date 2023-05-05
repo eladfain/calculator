@@ -76,9 +76,7 @@ function claculate(){
             
             break;
     }
-    if(!Number.isInteger(+displayData)){
-        displayData=(+displayData).toFixed(3);
-    }
+   
     currentOperator="";
     updateDisplay();
    
@@ -135,6 +133,13 @@ function backspaceClick(){
 }
 function updateDisplay(){
     const displayDiv=document.querySelector("#currentDisplay");
-    displayDiv.innerHTML=displayData;
+    if(Number.isInteger(+displayData)){
+        displayDiv.innerHTML=displayData;
+    }else{
+        const stringSplitDisplayData=displayData.toString().split(".");
+        displayDiv.innerHTML=`${stringSplitDisplayData[0]}.${stringSplitDisplayData[1].slice(0,3)}`
+    }
+    
+    
 }
 init()
