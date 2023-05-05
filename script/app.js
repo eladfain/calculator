@@ -76,6 +76,9 @@ function claculate(){
             
             break;
     }
+    if(!Number.isInteger(+displayData)){
+        displayData=(+displayData).toFixed(3);
+    }
     currentOperator="";
     updateDisplay();
    
@@ -132,11 +135,6 @@ function backspaceClick(){
 }
 function updateDisplay(){
     const displayDiv=document.querySelector("#currentDisplay");
-    if(Number.isInteger(+displayData)){
-        displayDiv.innerHTML=displayData;
-    }else{
-        displayDiv.innerHTML=(+displayData).toFixed(3);
-    }
-    
+    displayDiv.innerHTML=displayData;
 }
 init()
